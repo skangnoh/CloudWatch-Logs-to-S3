@@ -4,10 +4,10 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
 Parameters:
-  logbucketName:
-    Description: Provide a name for the destination log bucket
+  CWlogDestinationName:
+    Description: Provide a name for the cloudwatch logs destination
     Type: String
-  logbucketprefix:
+  CWlogDestinationPrefix:
     Description: Provide a prefix for the destination log bucket
     Type: String
     Default: 'logs'
@@ -161,7 +161,7 @@ Resources:
   BucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref logbucketName
+      Bucket: !Ref CWlogDestinationName
       PolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -171,7 +171,7 @@ Resources:
             Resource: !Join
               - ''
               - - 'arn:aws:s3:::'
-                - !Ref logbucketName
+                - !Ref CWlogDestinationName
             Principal:
               Service:
                 - "logs.us-east-1.amazonaws.com"
@@ -181,7 +181,7 @@ Resources:
             Resource: !Join
               - ''
               - - 'arn:aws:s3:::'
-                - !Ref logbucketName
+                - !Ref CWlogDestinationName
                 - /*
             Principal:
               Service:
